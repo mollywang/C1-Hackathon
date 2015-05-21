@@ -2,18 +2,36 @@
 <html lang="en-US">
 <!-- THIS IS THE CALL TO ANGULAR JS-->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 
+<!--- This is adding the Nessie Javascript Wrapper -->
 <script data-main="Nessie-Javascript-Wrapper/lib/capital_one" src="Nessie-Javascript-Wrapper/lib/require-jquery.js"></script>
+
+<!-- The noUiSlider script and stylesheet -->
+<!-- Use the files with *.min.* for the minified versions. -->
+<link href="jquery.nouislider.min.css" rel="stylesheet">
+
+<!-- Use the 'all' version to get all documented features. -->
+<!-- Includes wNumb, libLink and the pips add-on -->
+<script src="jquery.nouislider.all.min.js"></script>
+
+<style type="text/css">
+	#slider {
+		margin-bottom:50px;
+	}
+</style>
 
 <body ng-app="myApp" ng-controller="ListController">
 
-<ul>
-    <li ng-repeat="item in items">
-        <div>{{item}}</div>       
-    </li>
-</ul>
+<div id="slider" />
+
+<div>
+	<ul>
+	    <li ng-repeat="item in items">
+	        <div>{{item}}</div>       
+	    </li>
+	</ul>
+</div>
 
 <script>
 
@@ -35,7 +53,7 @@ $(function(){
 
 function billDemo (apikey, bills) {
 	var bm = bills.initWithKey(apikey);
-	console.log("[Customer Account Bills] : " + JSON.stringify(bm.getAllBillsByAccountId("555bed95a520e036e52b2680")));
+	// console.log("[Customer Account Bills] : " + JSON.stringify(bm.getAllBillsByAccountId("555bed95a520e036e52b2680")));
 }
 
 function customerDemo (apikey, customer) {
@@ -51,6 +69,17 @@ function customerDemo (apikey, customer) {
 var app = angular.module('myApp',[]);
 app.controller('ListController', function($scope) {
     $scope.items = ["a","b","c"]
+});
+
+console.log($("#slider"))
+
+$("#slider").noUiSlider({
+	start: [20, 80],
+	connect: true,
+	range: {
+		'min': 0,
+		'max': 100
+	}
 });
 
 </script>
