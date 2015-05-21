@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<script data-main="Nessie-Javascript-Wrapper/lib/capital_one" src="Nessie-Javascript-Wrapper/lib/require-jquery.js"></script>
+
+<body ng-app="myApp" ng-controller="ListController">
+
+<ul>
+    <li ng-repeat="item in items">
+        <div>{{item}}</div>       
+    </li>
+</ul>
+
+<script>
+
+$(function(){
+	require(['account', 'atm', 'branch', 'customer', 'deposit', 'transaction', 'withdrawal'], function (account, atm, branch, customer, deposit, transaction, withdrawal) {
+		var apikey = '4baacf4ff89dcf34346063a26c8b7d0b';
+		//var custAccount = account.initWithKey(apikey);
+		//var customer = custAccount.getAll()[0];
+		//accountDemo(apikey, account);
+		//atmDemo(apikey, atm);
+		//branchDemo(apikey, branch);
+		customerDemo(apikey, customer);	
+		//depositDemo(apikey, deposit);	
+		//transactionDemo(apikey, account, transaction);
+		//withdrawalDemo(apikey, withdrawal);
+	});
+});
+
+function customerDemo (apikey, customer) {
+	var customerAccount = customer.initWithKey(apikey);
+	console.log("[Customer - Get All] : Sample Customer: " + customerAccount.getAll()[0].account_ids);
+	console.log("[Customer - Get All] : Sample Customer: " + customerAccount.getAll()[0]._id);
+	console.log("[Customer - Get One] : Sample Customer" + customerAccount.getOne('555bed95a520e036e52b20c6').first_name);
+	console.log("[Customer - Get OneByAccount] : Sample Customer" + customerAccount.getOneByAcountId('555bed95a520e036e52b2787'));
+	var customerInfo = "{\"address\": {\"street_number\": \"8020\",\"street_name\": \"Greenroad Dr\",\"city\": \"McLean\",\"state\": \"VA\",\"zip\": \"22102\"}}";
+	console.log("[Customer - Update Customer] :" + customerAccount.updateCustomer('555bed95a520e036e52b20c6', customerInfo));
+}
+
+var app = angular.module('myApp',[]);
+app.controller('ListController', function($scope) {
+    $scope.items = ["a","b","c"]
+});
+
+</script>
+
+</body>
+
+
+</html>
