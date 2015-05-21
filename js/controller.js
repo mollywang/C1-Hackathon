@@ -7,6 +7,55 @@ $("#slider").noUiSlider({
 	}
 });
 
+$('#hi').innerHTML = $('#slider').Link('lower').to($('#slider-value'));
+
+function findUseful(bills) {
+  //Filters out irrelevant properties within bill
+  var usefulBills = [];
+  for (key in bills) {
+    var bill = bills[key];
+    var billCopy = {};
+    for (attribute in bill) {
+      if (attribute == "payee" || attribute == "payment_date" || attribute == "payment_amount") {
+        billCopy[attribute] = bill[attribute];
+      }
+    }
+    usefulBills.push(billCopy);
+  }
+  return usefulBills;
+}
+
+function sortByDate(usefulBills) {
+  //returns sorted list of bills by date
+  return usefulBills.sort(function(a,b) {
+    return new Date(a.payment_date).getTime() - new Date(b.payment_date).getTime();
+  });
+}
+
+function filterDate(date1, date2, sortedUsefulBills) {
+  //returns bills with dates in the given boundaries
+  var newDate1 = new Date(date1).getTime();
+  var newDate2 = new Date(date2).getTime();
+  validBills = [];
+  for (key in sortedUsefulBills) {
+    bill = sortedUsefulBills[key];
+    time = new Date(bill.payment_date).getTime();
+    if (time >= newDate1 && time <= newDate2) {
+      validBills.push(bill);
+    }
+  }
+  return validBills;
+}
+
+function sortByAmount(sortedValidBills) {
+  //returns bills sorted by amount in a given date boundary 
+  return sortedValidBills.sort(function(a,b) { 
+    return a.payment_amount - b.payment_amount;
+  });
+}
+
+var app = angular.module('myApp',[]);
+
 $(function(){
 	require(['account', 'atm', 'branch', 'customer', 'deposit', 'transaction', 'withdrawal', 'bills'], function (account, atm, branch, customer, deposit, transaction, withdrawal, bills) {
 		var apikey = '4baacf4ff89dcf34346063a26c8b7d0b';
@@ -26,19 +75,34 @@ $(function(){
 function billDemo (apikey, bills) {
 	var bm = bills.initWithKey(apikey);
 	// console.log("[Customer Account Bills] : " + JSON.stringify(bm.getAllBillsByAccountId("555bed95a520e036e52b2680")));
+	var bills = bm.getAllBillsByAccountId("555bed95a520e036e52b2680");
+	// console.log("[Customer Account Bills] : " + bm.getAllBillsByAccountId("555bed95a520e036e52b2680"));
+	// var result = bm.getAllBillsByAccountId("555bed95a520e036e52b2680");
+	var filtered = filterDate("2015-05-21", "2015-05-29", bills);
+	var l = new Object();
+	for (i in filtered) {
+		payment = filtered[i];
+		var its_in_there = false;
+		for (k in l) {
+			if (payment.payee == k) {
+				 its_in_there = true;
+			}
+		}
+		if (its_in_there == true) {
+			l[payment.payee] += payment.payment_amount; 
+		}
+		else {
+			l[payment.payee] = payment.payment_amount;
+		}
+	}
+	return l
+	// console.log(l);
+	// console.log(JSON.stringify(filtered));
 }
-
-function customerDemo (apikey, customer) {
-	var customerAccount = customer.initWithKey(apikey);
-	console.log("[Customer - Get All] : Sample Customer: " + customerAccount.getAll()[0].account_ids);
-	console.log("[Customer - Get All] : Sample Customer: " + customerAccount.getAll()[0]._id);
-	console.log("[Customer - Get One] : Sample Customer" + customerAccount.getOne('555bed95a520e036e52b20c6').first_name);
-	console.log("[Customer - Get OneByAccount] : Sample Customer" + customerAccount.getOneByAcountId('555bed95a520e036e52b2787'));
-	var customerInfo = "{\"address\": {\"street_number\": \"8020\",\"street_name\": \"Greenroad Dr\",\"city\": \"McLean\",\"state\": \"VA\",\"zip\": \"22102\"}}";
-	console.log("[Customer - Update Customer] :" + customerAccount.updateCustomer('555bed95a520e036e52b20c6', customerInfo));
-}
-
-var app = angular.module('myApp',[]);
+	
 app.controller('ListController', function($scope) {
-    $scope.items = [["Uber","200"],["Costco","40"],["Starbucks","5"]]
+    require(['account', 'atm', 'branch', 'customer', 'deposit', 'transaction', 'withdrawal', 'bills'])
+    bills = require('bills');
+	var apikey = '4baacf4ff89dcf34346063a26c8b7d0b';
+	$scope.items = billDemo(apikey, bills);
 });

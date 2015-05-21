@@ -24,6 +24,7 @@
 
 <body ng-app="myApp" ng-controller="ListController">
 
+
 	<nav class="navbar navbar-default fixed-top">
 	  	<div class="container-fluid">
 	  		<div class="navbar-header">
@@ -36,7 +37,7 @@
 	      		<li><a href="#">Personal</a></li>
 	      		<li><a href="#">Business</a></li>
 	      		<li><a href="#">Commercial</a></li>
-	      		<li><a href="#">search</a></li>
+	      		<li><a href="#">Search</a></li>
 	      	</ul>
 
 	    </div>
@@ -54,15 +55,17 @@
 		    	<div class="panel-heading">Expense History</div>
 		    		<table class="table table-hover">
 		      			<tbody>
-		      				<tr ng-repeat="item in items">
-					          <td>{{item[0]}}</td>
-					          <td>${{item[1]}}</td>
+		      				<tr ng-repeat="(name, expense) in items">
+					          <td>{{name}}</td>
+					          <td style="color:green;">${{expense}}</td>
 		        			</tr>
 		      			</tbody>
 		    		</table>
 			</div>
 		</div>
  	</div>
+
+ 	<div id="hi" > </div>
 
 </body>
 
