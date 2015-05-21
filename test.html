@@ -3,7 +3,6 @@
 <!-- THIS IS THE CALL TO ANGULAR JS-->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
 
-
 <!--- This is adding the Nessie Javascript Wrapper -->
 <script data-main="Nessie-Javascript-Wrapper/lib/capital_one" src="Nessie-Javascript-Wrapper/lib/require-jquery.js"></script>
 
@@ -15,23 +14,58 @@
 <!-- Includes wNumb, libLink and the pips add-on -->
 <script src="jquery.nouislider.all.min.js"></script>
 
-<style type="text/css">
-	#slider {
-		margin-bottom:50px;
-	}
-</style>
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/custom.css">
 
 <body ng-app="myApp" ng-controller="ListController">
 
-<div id="slider" />
+<nav class="navbar">
+    <div class="nav-container">
+      <span class="nav-left nav-section">Capital One</span>
 
-<div>
-	<ul>
-	    <li ng-repeat="item in items">
-	        <div>{{item}}</div>       
-	    </li>
-	</ul>
+        <span class="nav-mid nav-section">Personal</span>
+        <span class="nav-mid nav-section">Business</span>
+        <span class="nav-mid nav-section">Commercial</span>
+     
+      <span class="nav-right nav-section">Search</span>
+      <span class="nav-right nav-section">Locations</span>      
+      <span class="nav-right nav-section">Sign In</span>
+
+    </div>
+  </nav>
+
+<div class = "row">
+<div id="slider" />
 </div>
+
+<br />
+
+<div class="row">
+  <div class = "col-md-8 col-md-offset-2">
+	  <div class="panel panel-default">
+	  <!-- Default panel contents -->
+	    <div class="panel-heading">Expense History</div>
+	    <!-- Table -->
+	    <table class="table table-hover">
+	       <!-- Dummy Data -->
+	      <!-- <thead>
+	        <tr>
+	          <th>Company</th>
+	          <th>Spent</th>
+	        </tr>
+	      </thead> -->
+	      <tbody>
+	      	<tr ng-repeat="item in items">
+	          <td>{{item[0]}}</td>
+	          <td>${{item[1]}}</td>
+	        </tr>
+	      </tbody>
+	    </table> 
+	</div>
+</div>
+
+ </div>
 
 <script>
 
@@ -68,7 +102,7 @@ function customerDemo (apikey, customer) {
 
 var app = angular.module('myApp',[]);
 app.controller('ListController', function($scope) {
-    $scope.items = ["a","b","c"]
+    $scope.items = [["Uber","200"],["Costco","40"],["Starbucks","5"]]
 });
 
 console.log($("#slider"))
@@ -84,7 +118,7 @@ $("#slider").noUiSlider({
 
 </script>
 
-
+<script src="js/bootstrap.min.js"></script>
 
 </body>
 

@@ -1,0 +1,58 @@
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300);
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.nav-container  {
+  width: 87.5%;
+  margin: auto;
+  box-sizing: border-box;
+}
+.nav-left {
+  float: left;
+  padding: 1rem;
+}
+.nav-search {
+  padding: .625rem 0;
+  margin-left: 3rem;
+}
+.nav-right {
+  float: right;
+  padding: 1rem 2rem;
+}
+
+.nav-mid {
+  float: right;
+  padding: 1rem 2rem;
+}
+
+.nav::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.btn-group {
+	padding: 10px;
+	margin-left: 10px;
+}
+
+.nav-mid-container {
+	wight: 50px;
+	margin-left: 20%;
+}
+
+.row {
+	margin-left: 5px;
+}
+
+
+
+
+
+
+
+
+
