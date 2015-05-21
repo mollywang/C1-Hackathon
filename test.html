@@ -14,19 +14,26 @@
 <script>
 
 $(function(){
-	require(['account', 'atm', 'branch', 'customer', 'deposit', 'transaction', 'withdrawal'], function (account, atm, branch, customer, deposit, transaction, withdrawal) {
+	require(['account', 'atm', 'bills', 'branch', 'customer', 'deposit', 'transaction', 'withdrawal'], function (account, atm, branch, customer, deposit, transaction, withdrawal, bills) {
 		var apikey = '4baacf4ff89dcf34346063a26c8b7d0b';
 		//var custAccount = account.initWithKey(apikey);
 		//var customer = custAccount.getAll()[0];
 		//accountDemo(apikey, account);
 		//atmDemo(apikey, atm);
+		billDemo(apikey, bills);
 		//branchDemo(apikey, branch);
-		customerDemo(apikey, customer);	
+		// customerDemo(apikey, customer);
 		//depositDemo(apikey, deposit);	
 		//transactionDemo(apikey, account, transaction);
 		//withdrawalDemo(apikey, withdrawal);
 	});
 });
+
+function billDemo (apikey, bills) {
+	console.log(bills);
+	var bm = bills.initWithKey(apikey);
+	console.log("[Customer Account Bills] : " + bm.getAllBillsByAccountId("555bed95a520e036e52b2680"));
+}
 
 function customerDemo (apikey, customer) {
 	var customerAccount = customer.initWithKey(apikey);
