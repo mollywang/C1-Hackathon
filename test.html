@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <!-- THIS IS THE CALL TO ANGULAR JS-->
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
 
 <script data-main="Nessie-Javascript-Wrapper/lib/capital_one" src="Nessie-Javascript-Wrapper/lib/require-jquery.js"></script>
 
@@ -29,7 +31,9 @@ $(function(){
 		//withdrawalDemo(apikey, withdrawal);
 	});
 });
+</script>
 
+<script>
 function customerDemo (apikey, customer) {
 	var customerAccount = customer.initWithKey(apikey);
 	console.log("[Customer - Get All] : Sample Customer: " + customerAccount.getAll()[0].account_ids);
@@ -46,6 +50,8 @@ app.controller('ListController', function($scope) {
 });
 
 </script>
+
+
 
 </body>
 
