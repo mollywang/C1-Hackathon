@@ -20,6 +20,10 @@ def make_payment(payee, date, amount):
 
 def main():
 	companies = ['Apple', 'Seven-Eleven', 'Uber', 'Starbucks', 'Amazon.com','Costco', 'The Local Pub', 'Hooters', 'Venmo.com', 'H&M', 'UPS', 'United']
+	
+	months = ['0'+str(i) for i in range(1,6)]
+	days = [str(i) for i in range(1,30)]
+
 	payee='Uber'
 	date='2015-05-12'
 	amount=39
