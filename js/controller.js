@@ -75,6 +75,18 @@ var app = angular.module('myApp',[]);
 // 		//withdrawalDemo(apikey, withdrawal);
 // 	});
 // });
+function companyAmountPairsSort(pairs) {
+  var amounts = []
+  for (i in pairs) {
+    amounts.push({"payee": i, "amount": pairs[i]})
+  }
+  var sortedByReverseAmount = amounts.sort(function(a, b) { 
+     return b.amount - a.amount
+  });
+
+  return amounts
+ }
+
 
 function billDemo (apikey, bills, start, end) {
 	var bm = bills.initWithKey(apikey);
@@ -86,20 +98,9 @@ function billDemo (apikey, bills, start, end) {
 	var l = new Object();
 	for (i in filtered) {
 		payment = filtered[i];
-		var its_in_there = false;
-		for (k in l) {
-			if (payment.payee == k) {
-				 its_in_there = true;
-			}
-		}
-		if (its_in_there == true) {
-			l[payment.payee] += payment.payment_amount; 
-		}
-		else {
-			l[payment.payee] = payment.payment_amount;
-		}
+		l[payment.payee] = (l[payment.payee] ? l[payment.payee] + payment.payment_amount : payment.payment_amount)
 	}
-	return l
+	return companyAmountPairsSort(l)
 	// console.log(l);
 	// console.log(JSON.stringify(filtered));
 }
