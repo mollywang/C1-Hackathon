@@ -19,6 +19,11 @@
 <link rel="stylesheet" type="text/css" href="css/custom.css">
 <script src="js/bootstrap.min.js"></script>
 
+
+<script src="js/ion.rangeSlider.js"></script>
+<link rel="stylesheet" href="css/ion.rangeSlider.css" />
+<link rel="stylesheet" href="css/ion.rangeSlider.skinFlat.css" />
+
 <!-- Styles -->
 <link href="css/style.css" rel="stylesheet" />
 
@@ -39,12 +44,12 @@
 	      		<li><a href="#">Commercial</a></li>
 	      		<li><a href="#">Search</a></li>
 	      	</ul>
-
 	    </div>
   	</nav>
 
 	<div class = "row">
-		<div id="slider" />
+		<!-- <div ng-controller="sliderController" id="slider" /> -->
+		<div class="col-md-8 col-md-offset-2" id="range_22" />
 	</div>
 
 	<br />
@@ -65,7 +70,8 @@
 		</div>
  	</div>
 
- 	<div id="hi" > </div>
+ 	<div id="lower_value"> </div>
+ 	<div id="upper_value"> </div>
 
 </body>
 
